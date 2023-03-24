@@ -1,0 +1,69 @@
+
+import './App.css';
+import React, { createContext } from 'react';
+import ChildA from './ChildA';
+// import Header from './Header';
+
+
+const data= createContext();
+const data1 = createContext();
+function App() {
+  const name='Rohit';
+  const gender="male"
+  return (
+    <> 
+    <data.Provider value={name}>  
+    <data1.Provider value={gender}>               
+     <ChildA />
+     </data1.Provider>
+     </data.Provider>  
+
+    </>
+    
+  );
+}
+
+export default App;
+export {data, data1};
+
+
+
+
+import React from "react";
+import ChildB from "./ChildB";
+function ChildA(){
+    return(
+        <ChildB/>
+    )   
+
+}
+export default ChildA;
+
+
+
+import React from "react";
+import ChildC from "./ChildC"
+function ChildB(){
+    return(
+        <ChildC/>
+    )
+
+}
+export default ChildB;
+
+
+import React,{useContext}from "react";
+import {data, data1} from "./App"
+
+function ChildC(){
+    const Firstname= useContext(data);
+    const gender = useContext(data1);
+    return(
+       <>
+       <h1>My name is{Firstname} and my gender is {gender} </h1>
+       
+       </>
+    )
+
+}
+export default ChildC;
