@@ -1,0 +1,42 @@
+App.js
+
+
+
+import React, { useState, useCallback } from 'react';
+import './App.css';
+import ChildA from './ChildA';
+
+function App() {
+  const [add, setAdd]= useState(0);
+  const [count, setCount]= useState(0);
+  const Learning = useCallback(()=>{
+    //some operation
+  },[])
+  return (
+    <div className="App">
+      <h1>Learing useCallback</h1>
+      <ChildA  Learning={Learning} count ={count}/>
+      <h1>{add}</h1>
+      <button onClick={()=> setAdd(add +1)}>Addition</button>
+      <h1>{count}</h1>
+      <button onClick={()=>setCount(count+2)}>Count</button>
+    </div>
+  );
+}
+
+export default App;
+
+
+ChildA.js
+
+
+import React,{memo} from "react";
+
+function ChildA(Learning){
+    console.log("Child component")
+    return (
+        <>
+        </>
+    )
+}  
+export default memo(ChildA);
