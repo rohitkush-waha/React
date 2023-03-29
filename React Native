@@ -1,0 +1,90 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {useState} from 'react';
+import { Image, StyleSheet, Text, View, Button } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native'
+
+
+
+function Welcome({ navigation }) {
+  
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="Fill the details"
+        onPress={() => navigation.navigate('Fill all details')}
+      />
+    </View>
+  );
+}
+
+function Form({ navigation }) {
+  // const navigation = useNavigation();
+  const [name, setName] = useState('');
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <TextInput
+        value={name}
+        onChangeText={(username) => setName(username)}
+        placeholder={'Enter your Name'}
+        style={styles.inputStyle}
+      />
+      <Button
+        title='Go Next'
+        mode='contained'
+        onPress={()=>navigation.navigate('Detail',{
+          paramKey:name
+        })}
+      />
+    </View>
+  );
+}
+
+function Detail({route}) {
+  return(
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{fontSize:40, color:'black'}}>{route.params.paramKey}</Text>
+    </View>
+  )
+  
+}
+
+
+
+
+const Stack = createNativeStackNavigator();
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Welcome to Form" component={Welcome} />
+      <Stack.Screen name="Fill all details" component={Form} />
+      <Stack.Screen name="Detail" component={Detail}/>
+    </Stack.Navigator>
+  )
+
+}
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
+
+}
+
+
+const styles = StyleSheet.create({
+  
+  inputStyle:{
+    width: '80%',
+    height:44,
+    padding:10,
+    marginVertical:10,
+    backgroundColor:'#DBDBD6',
+    color:'black'
+    
+  }
+});
